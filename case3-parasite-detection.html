@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI寄生虫画像認識システム - デモ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="page-header">
+            <a href="index.html" class="back-link">← メニューに戻る</a>
+            <h1>AI寄生虫画像認識システム</h1>
+            <p class="subtitle">顕微鏡画像から寄生虫の有無と種類をAIで判定</p>
+        </header>
+        
+        <main>
+            <div class="parasite-layout">
+                <!-- 左側：画像アップロード・判定 -->
+                <div class="parasite-section">
+                    <div class="card">
+                        <h2><i class="fas fa-camera"></i> 顕微鏡画像のアップロード</h2>
+                        
+                        <div class="upload-area-image" id="imageUploadArea">
+                            <div class="upload-content">
+                                <div class="upload-icon"><i class="fas fa-microscope"></i></div>
+                                <p>スマートフォンで撮影した<br>顕微鏡画像をアップロード</p>
+                                <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                                <button class="btn btn-secondary" onclick="document.getElementById('imageInput').click()">
+                                    画像を選択
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="imagePreview" class="image-preview" style="display: none;">
+                            <div class="preview-container">
+                                <img id="previewImage" src="" alt="プレビュー">
+                                <button class="btn-remove" onclick="removeImage()">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-top: 20px;">
+                            <label>ペット情報</label>
+                            <div class="pet-info-grid">
+                                <select id="petType" class="form-control">
+                                    <option value="">種類を選択</option>
+                                    <option value="dog">犬</option>
+                                    <option value="cat">猫</option>
+                                </select>
+                                <input type="text" id="petWeight" class="form-control" placeholder="体重 (kg)">
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary btn-block" id="analyzeBtn" onclick="analyzeParasite()" disabled>
+                            <i class="fas fa-brain"></i> AI判定を実行
+                        </button>
+                    </div>
+
+                    <div class="card">
+                        <h2><i class="fas fa-history"></i> 判定履歴</h2>
+                        <div id="historyList" class="history-list">
+                            <div class="history-item">
+                                <div class="history-header">
+                                    <strong>検出あり - 回虫</strong>
+                                    <span class="history-date">2025/10/15 14:30</span>
+                                </div>
+                                <div class="history-info">犬 / 5.2kg</div>
+                            </div>
+                            <div class="history-item">
+                                <div class="history-header">
+                                    <strong>検出なし</strong>
+                                    <span class="history-date">2025/10/15 13:15</span>
+                                </div>
+                                <div class="history-info">猫 / 3.8kg</div>
+                            </div>
+                            <div class="history-item">
+                                <div class="history-header">
+                                    <strong>検出あり - 鞭虫</strong>
+                                    <span class="history-date">2025/10/15 11:45</span>
+                                </div>
+                                <div class="history-info">犬 / 8.5kg</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 右側：判定結果 -->
+                <div class="parasite-section">
+                    <div class="card">
+                        <h2><i class="fas fa-brain"></i> AI判定結果</h2>
+                        <div id="resultArea" class="result-area">
+                            <div class="result-placeholder">
+                                <div class="placeholder-icon"><i class="fas fa-search"></i></div>
+                                <p>顕微鏡画像をアップロードして<br>AI判定を実行してください</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" id="prescriptionCard" style="display: none;">
+                        <h2><i class="fas fa-pills"></i> 処方薬提案</h2>
+                        <div id="prescriptionArea" class="prescription-area">
+                            <!-- 処方薬情報がここに表示されます -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="case3-script.js"></script>
+</body>
+</html>
+

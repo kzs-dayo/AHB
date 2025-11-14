@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>安否確認システム - デモ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="page-header">
+            <a href="index.html" class="back-link">← メニューに戻る</a>
+            <h1>安否確認システム</h1>
+            <p class="subtitle">災害発生時のブリーダー（ペット）向け安否確認</p>
+        </header>
+        
+        <main>
+            <!-- タブ切り替え -->
+            <div class="tab-container">
+                <button class="tab-btn active" onclick="switchTab('admin')">
+                    <i class="fas fa-user-cog"></i> 管理者画面
+                </button>
+                <button class="tab-btn" onclick="switchTab('breeder')">
+                    <i class="fas fa-user"></i> ブリーダー画面
+                </button>
+            </div>
+
+            <!-- 管理者画面 -->
+            <div id="adminTab" class="tab-content active">
+                <div class="admin-layout">
+                    <!-- 左側：メッセージ作成・送信 -->
+                    <div class="admin-section">
+                        <div class="card">
+                            <h2><i class="fas fa-paper-plane"></i> 安否確認メッセージ送信</h2>
+                            
+                            <div class="form-group">
+                                <label>対象地域</label>
+                                <select id="regionSelect" class="form-control">
+                                    <option value="">地域を選択してください</option>
+                                    <option value="tokyo">東京都</option>
+                                    <option value="osaka">大阪府</option>
+                                    <option value="aichi">愛知県</option>
+                                    <option value="fukuoka">福岡県</option>
+                                    <option value="hokkaido">北海道</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>メッセージテンプレート</label>
+                                <select id="templateSelect" class="form-control" onchange="loadTemplate()">
+                                    <option value="">テンプレートを選択（任意）</option>
+                                    <option value="earthquake">地震発生時</option>
+                                    <option value="typhoon">台風接近時</option>
+                                    <option value="flood">洪水警報時</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>送信メッセージ</label>
+                                <textarea id="messageText" class="form-control" rows="6" placeholder="安否確認メッセージを入力してください"></textarea>
+                                <div class="char-count">
+                                    <span id="charCount">0</span> / 500文字
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>送信対象者数</label>
+                                <div class="target-info">
+                                    <span id="targetCount">-</span> 名
+                                </div>
+                            </div>
+
+                            <button class="btn btn-primary btn-block" onclick="sendSafetyCheck()">
+                                <i class="fas fa-paper-plane"></i> 一斉送信
+                            </button>
+                        </div>
+
+                        <div class="card">
+                            <h2><i class="fas fa-history"></i> 送信履歴</h2>
+                            <div id="historyList" class="history-list">
+                                <div class="history-item">
+                                    <div class="history-header">
+                                        <strong>東京都 - 地震発生時</strong>
+                                        <span class="history-date">2025/10/15 14:30</span>
+                                    </div>
+                                    <div class="history-info">送信数: 450名 / 回答数: 387名 (86%)</div>
+                                </div>
+                                <div class="history-item">
+                                    <div class="history-header">
+                                        <strong>大阪府 - 台風接近時</strong>
+                                        <span class="history-date">2025/10/10 09:15</span>
+                                    </div>
+                                    <div class="history-info">送信数: 320名 / 回答数: 298名 (93%)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 右側：回答状況 -->
+                    <div class="admin-section">
+                        <div class="card">
+                            <h2><i class="fas fa-chart-pie"></i> 回答状況</h2>
+                            
+                            <div class="status-summary">
+                                <div class="status-item status-safe">
+                                    <div class="status-icon"><i class="fas fa-check-circle"></i></div>
+                                    <div class="status-content">
+                                        <div class="status-label">無事</div>
+                                        <div class="status-count" id="safeCount">0</div>
+                                    </div>
+                                </div>
+                                <div class="status-item status-support">
+                                    <div class="status-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                                    <div class="status-content">
+                                        <div class="status-label">要支援</div>
+                                        <div class="status-count" id="supportCount">0</div>
+                                    </div>
+                                </div>
+                                <div class="status-item status-noresponse">
+                                    <div class="status-icon"><i class="fas fa-question-circle"></i></div>
+                                    <div class="status-content">
+                                        <div class="status-label">未回答</div>
+                                        <div class="status-count" id="noResponseCount">0</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="progress-bar-container">
+                                <div class="progress-label">回答率</div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="responseRate" style="width: 0%"></div>
+                                </div>
+                                <div class="progress-text" id="responseRateText">0%</div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h2><i class="fas fa-list"></i> 回答一覧</h2>
+                            
+                            <div class="filter-tabs">
+                                <button class="filter-btn active" onclick="filterResponses('all')">すべて</button>
+                                <button class="filter-btn" onclick="filterResponses('safe')">無事</button>
+                                <button class="filter-btn" onclick="filterResponses('support')">要支援</button>
+                                <button class="filter-btn" onclick="filterResponses('noresponse')">未回答</button>
+                            </div>
+
+                            <div id="responseList" class="response-list">
+                                <!-- 回答リストがここに表示されます -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ブリーダー画面 -->
+            <div id="breederTab" class="tab-content">
+                <div class="breeder-layout">
+                    <div class="breeder-container">
+                        <div class="breeder-card">
+                            <div class="breeder-header">
+                                <h2>安否確認のお願い</h2>
+                                <p class="breeder-subtitle">災害発生時の安否確認にご協力ください</p>
+                            </div>
+
+                            <div class="message-box">
+                                <div class="message-icon"><i class="fas fa-envelope"></i></div>
+                                <div class="message-content" id="breederMessage">
+                                    現在、災害が発生しております。ご自身とペットの安否状況について、以下から選択してご回答ください。
+                                </div>
+                                <div class="message-time">受信日時: 2025/10/16 15:30</div>
+                            </div>
+
+                            <div class="response-buttons">
+                                <button class="response-btn btn-safe" onclick="breederRespond('safe')">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>無事です</span>
+                                </button>
+                                <button class="response-btn btn-support" onclick="breederRespond('support')">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    <span>要支援</span>
+                                </button>
+                            </div>
+
+                            <div class="breeder-situation">
+                                <label for="situationText">
+                                    <i class="fas fa-edit"></i> 状況の詳細（任意）
+                                </label>
+                                <textarea 
+                                    id="situationText" 
+                                    class="situation-textarea" 
+                                    rows="5" 
+                                    placeholder="現在の状況や必要な支援内容などをご記入ください。&#10;例：自宅は無事ですが、ペットの餌が不足しています。"
+                                ></textarea>
+                                <div class="char-count-situation">
+                                    <span id="situationCharCount">0</span> / 500文字
+                                </div>
+                            </div>
+
+                            <div class="breeder-info">
+                                <p><i class="fas fa-info-circle"></i> 回答後、管理者に自動で通知されます</p>
+                            </div>
+                        </div>
+
+                        <div class="breeder-status" id="breederStatus" style="display: none;">
+                            <div class="status-message">
+                                <i class="fas fa-check-circle"></i>
+                                <p>回答を送信しました。ご協力ありがとうございます。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="case2-script.js"></script>
+</body>
+</html>
+

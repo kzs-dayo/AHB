@@ -1,0 +1,1326 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+    background: #f5f5f5;
+    min-height: 100vh;
+    padding: 20px;
+    color: #333;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+/* ヘッダー */
+header {
+    background: #014793;
+    color: white;
+    padding: 40px;
+    text-align: center;
+}
+
+.header-logo {
+    margin-bottom: 20px;
+}
+
+.logo-img {
+    max-height: 80px;
+    max-width: 200px;
+    height: auto;
+    width: auto;
+    object-fit: contain;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+}
+
+header h1 i {
+    margin-left: 10px;
+    font-size: 0.9em;
+    opacity: 0.9;
+}
+
+.subtitle {
+    font-size: 1.1em;
+    opacity: 0.9;
+}
+
+.page-header {
+    text-align: left;
+    position: relative;
+}
+
+.page-header .header-logo {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.page-header .header-logo .logo-img {
+    max-height: 60px;
+    max-width: 180px;
+}
+
+.back-link {
+    color: white;
+    text-decoration: none;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+    display: inline-block;
+    opacity: 0.9;
+    transition: opacity 0.3s;
+}
+
+.back-link:hover {
+    opacity: 1;
+}
+
+/* メインコンテンツ */
+main {
+    padding: 40px;
+}
+
+/* メニューグリッド */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.menu-card {
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.menu-card:hover:not(.coming-soon) {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(1, 71, 147, 0.3);
+    border-color: #014793;
+}
+
+.menu-card.coming-soon {
+    opacity: 0.6;
+}
+
+.card-icon {
+    font-size: 4em;
+    margin-bottom: 20px;
+    color: #014793;
+}
+
+.card-icon i {
+    display: block;
+}
+
+.menu-card h2 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    color: #333;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+}
+
+.menu-card p {
+    color: #666;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+/* ボタン */
+.btn {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary {
+    background: #014793;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #013a7a;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(1, 71, 147, 0.4);
+}
+
+.btn-secondary {
+    background: #f0f0f0;
+    color: #333;
+}
+
+.btn-secondary:hover {
+    background: #e0e0e0;
+}
+
+.btn-disabled {
+    background: #ccc;
+    color: #999;
+    cursor: not-allowed;
+}
+
+/* デモレイアウト */
+.demo-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+@media (max-width: 1024px) {
+    .demo-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* カード */
+.card {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card h2 {
+    font-size: 1.3em;
+    margin-bottom: 20px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+}
+
+.card h2 i {
+    color: #014793;
+    font-size: 1.2em;
+}
+
+/* アップロードエリア */
+.upload-area {
+    border: 3px dashed #014793;
+    border-radius: 10px;
+    padding: 40px;
+    text-align: center;
+    background: #f8f9fa;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.upload-area:hover {
+    background: #f0f2f5;
+    border-color: #013a7a;
+}
+
+.upload-area.dragover {
+    background: #e8ebf0;
+    border-color: #013a7a;
+    transform: scale(1.02);
+}
+
+.upload-content {
+    pointer-events: none;
+}
+
+.upload-icon {
+    font-size: 3em;
+    margin-bottom: 15px;
+    color: #014793;
+}
+
+.upload-icon i {
+    display: block;
+}
+
+.upload-area p {
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.file-info {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.file-info p {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* フォーム */
+.pet-info-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.form-control {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: border-color 0.3s;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #014793;
+    box-shadow: 0 0 0 3px rgba(1, 71, 147, 0.1);
+}
+
+/* 判定結果エリア */
+.result-area {
+    min-height: 200px;
+}
+
+.result-placeholder {
+    text-align: center;
+    padding: 40px;
+    color: #999;
+}
+
+.placeholder-icon {
+    font-size: 3em;
+    margin-bottom: 15px;
+    color: #999;
+}
+
+.placeholder-icon i {
+    display: block;
+}
+
+.result-content {
+    display: none;
+}
+
+.result-content.active {
+    display: block;
+}
+
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.result-header h3 {
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    margin: 0;
+}
+
+.result-status {
+    display: inline-block;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9em;
+}
+
+.status-normal {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-abnormal {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.status-warning {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.result-details {
+    margin-top: 20px;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.detail-item:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    font-weight: 600;
+    color: #666;
+}
+
+.detail-value {
+    color: #333;
+}
+
+/* 詳細情報ボックス */
+.detailed-info-box {
+    margin-top: 10px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #014793;
+    line-height: 1.8;
+}
+
+.recommendations-box {
+    margin-top: 10px;
+    padding: 15px;
+    background: #fff3cd;
+    border-radius: 8px;
+    border-left: 4px solid #ffc107;
+    line-height: 1.8;
+}
+
+.recommendations-box i {
+    color: #856404;
+    margin-right: 8px;
+}
+
+.murmur-type {
+    font-weight: 600;
+    color: #dc3545;
+}
+
+/* 波形グラフ */
+.waveform-container {
+    width: 100%;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    overflow-x: auto;
+}
+
+#waveformCanvas {
+    display: block;
+    width: 100%;
+    height: 200px;
+}
+
+.waveform-legend {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.legend-color {
+    width: 20px;
+    height: 3px;
+    border-radius: 2px;
+}
+
+.legend-color.normal {
+    background: #014793;
+}
+
+.legend-color.murmur {
+    background: #dc3545;
+}
+
+/* 履歴エリア */
+.history-area {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.history-placeholder {
+    text-align: center;
+    padding: 30px;
+    color: #999;
+}
+
+.history-item {
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    background: #f8f9fa;
+    transition: all 0.3s;
+}
+
+.history-item:hover {
+    background: #f0f2f5;
+    transform: translateX(5px);
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.history-date {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.history-info {
+    font-size: 0.85em;
+    color: #999;
+    margin-top: 5px;
+}
+
+/* ローディング */
+.loading {
+    text-align: center;
+    padding: 40px;
+}
+
+.spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #014793;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* フッター */
+footer {
+    background: #f8f9fa;
+    padding: 20px;
+    text-align: center;
+    color: #666;
+    font-size: 0.9em;
+}
+
+/* タブ切り替え */
+.tab-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.tab-btn {
+    padding: 12px 24px;
+    border: none;
+    background: transparent;
+    color: #666;
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tab-btn:hover {
+    color: #014793;
+}
+
+.tab-btn.active {
+    color: #014793;
+    border-bottom-color: #014793;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* 管理者レイアウト */
+.admin-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+@media (max-width: 1024px) {
+    .admin-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 文字数カウント */
+.char-count {
+    text-align: right;
+    font-size: 0.85em;
+    color: #666;
+    margin-top: 5px;
+}
+
+/* 対象者情報 */
+.target-info {
+    padding: 10px 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #014793;
+}
+
+.btn-block {
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* 回答状況サマリー */
+.status-summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    border-radius: 10px;
+    background: #f8f9fa;
+}
+
+.status-item.status-safe {
+    border-left: 4px solid #28a745;
+}
+
+.status-item.status-support {
+    border-left: 4px solid #ffc107;
+}
+
+.status-item.status-noresponse {
+    border-left: 4px solid #dc3545;
+}
+
+.status-icon {
+    font-size: 2em;
+}
+
+.status-item.status-safe .status-icon {
+    color: #28a745;
+}
+
+.status-item.status-support .status-icon {
+    color: #ffc107;
+}
+
+.status-item.status-noresponse .status-icon {
+    color: #dc3545;
+}
+
+.status-content {
+    flex: 1;
+}
+
+.status-label {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.status-count {
+    font-size: 1.8em;
+    font-weight: 600;
+    color: #333;
+}
+
+/* プログレスバー */
+.progress-bar-container {
+    margin-top: 20px;
+}
+
+.progress-label {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.progress-bar {
+    height: 12px;
+    background: #e0e0e0;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #014793;
+    transition: width 0.5s ease;
+    border-radius: 6px;
+}
+
+.progress-text {
+    text-align: right;
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #014793;
+}
+
+/* フィルタータブ */
+.filter-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    background: white;
+    color: #666;
+    border-radius: 20px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.filter-btn:hover {
+    border-color: #014793;
+    color: #014793;
+}
+
+.filter-btn.active {
+    background: #014793;
+    color: white;
+    border-color: #014793;
+}
+
+/* 回答リスト */
+.response-list {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.response-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    background: white;
+    transition: all 0.3s;
+}
+
+.response-item:hover {
+    background: #f8f9fa;
+    transform: translateX(5px);
+}
+
+.response-icon {
+    font-size: 1.5em;
+    width: 40px;
+    text-align: center;
+}
+
+.response-item.status-safe .response-icon {
+    color: #28a745;
+}
+
+.response-item.status-support .response-icon {
+    color: #ffc107;
+}
+
+.response-item.status-noresponse .response-icon {
+    color: #dc3545;
+}
+
+.response-content {
+    flex: 1;
+}
+
+.response-name {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.response-details {
+    display: flex;
+    gap: 15px;
+    font-size: 0.85em;
+    color: #999;
+    margin-top: 5px;
+}
+
+.response-situation {
+    margin-top: 10px;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    font-size: 0.9em;
+    color: #333;
+    line-height: 1.5;
+    border-left: 3px solid #014793;
+}
+
+.response-situation i {
+    color: #014793;
+    margin-right: 5px;
+}
+
+.response-status {
+    min-width: 80px;
+    text-align: right;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 12px;
+    font-size: 0.85em;
+    font-weight: 600;
+}
+
+.status-badge.status-safe {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-badge.status-support {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-badge.status-noresponse {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.no-data {
+    text-align: center;
+    padding: 40px;
+    color: #999;
+}
+
+/* ブリーダー画面 */
+.breeder-layout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    padding: 40px 20px;
+}
+
+.breeder-container {
+    max-width: 600px;
+    width: 100%;
+}
+
+.breeder-card {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.breeder-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.breeder-header h2 {
+    font-size: 2em;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.breeder-subtitle {
+    color: #666;
+    font-size: 1em;
+}
+
+.message-box {
+    background: #f8f9fa;
+    border-left: 4px solid #014793;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 30px;
+}
+
+.message-icon {
+    font-size: 2em;
+    color: #014793;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.message-content {
+    color: #333;
+    line-height: 1.8;
+    white-space: pre-line;
+    margin-bottom: 15px;
+}
+
+.message-time {
+    font-size: 0.85em;
+    color: #999;
+    text-align: right;
+}
+
+.response-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.response-btn {
+    padding: 20px;
+    border: 2px solid;
+    border-radius: 12px;
+    font-size: 1.2em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: white;
+}
+
+.response-btn.btn-safe {
+    border-color: #28a745;
+    color: #28a745;
+}
+
+.response-btn.btn-safe:hover {
+    background: #28a745;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+}
+
+.response-btn.btn-support {
+    border-color: #ffc107;
+    color: #856404;
+}
+
+.response-btn.btn-support:hover {
+    background: #ffc107;
+    color: #856404;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
+}
+
+.response-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.breeder-situation {
+    margin: 25px 0;
+}
+
+.breeder-situation label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 1em;
+}
+
+.breeder-situation label i {
+    color: #014793;
+}
+
+.situation-textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1em;
+    font-family: inherit;
+    line-height: 1.6;
+    resize: vertical;
+    transition: border-color 0.3s;
+}
+
+.situation-textarea:focus {
+    outline: none;
+    border-color: #014793;
+    box-shadow: 0 0 0 3px rgba(1, 71, 147, 0.1);
+}
+
+.situation-textarea:disabled {
+    background: #f5f5f5;
+    cursor: not-allowed;
+}
+
+.char-count-situation {
+    text-align: right;
+    font-size: 0.85em;
+    color: #666;
+    margin-top: 5px;
+}
+
+.breeder-info {
+    text-align: center;
+    color: #666;
+    font-size: 0.9em;
+}
+
+.breeder-info i {
+    margin-right: 5px;
+}
+
+.breeder-status {
+    margin-top: 30px;
+    padding: 30px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.status-message i {
+    font-size: 3em;
+    margin-bottom: 15px;
+}
+
+.status-message p {
+    color: #333;
+    line-height: 1.6;
+}
+
+/* 履歴リスト */
+.history-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* レスポンシブ */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.8em;
+    }
+    
+    main {
+        padding: 20px;
+    }
+    
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .card {
+        padding: 20px;
+    }
+
+    .status-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .breeder-card {
+        padding: 30px 20px;
+    }
+
+    .breeder-header h2 {
+        font-size: 1.5em;
+    }
+
+    .response-btn {
+        font-size: 1em;
+        padding: 15px;
+    }
+}
+
+/* 寄生虫判定システム */
+.parasite-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+@media (max-width: 1024px) {
+    .parasite-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 画像アップロードエリア */
+.upload-area-image {
+    border: 3px dashed #014793;
+    border-radius: 10px;
+    padding: 40px;
+    text-align: center;
+    background: #f8f9fa;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.upload-area-image:hover {
+    background: #f0f2f5;
+    border-color: #013a7a;
+}
+
+.upload-area-image.dragover {
+    background: #e8ebf0;
+    border-color: #013a7a;
+    transform: scale(1.02);
+}
+
+/* 画像プレビュー */
+.image-preview {
+    margin-top: 20px;
+}
+
+.preview-container {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid #e0e0e0;
+}
+
+.preview-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-height: 400px;
+    object-fit: contain;
+    background: #f8f9fa;
+}
+
+.btn-remove {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(220, 53, 69, 0.9);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.btn-remove:hover {
+    background: rgba(220, 53, 69, 1);
+    transform: scale(1.1);
+}
+
+/* ペット情報グリッド */
+.pet-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+@media (max-width: 768px) {
+    .pet-info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 寄生虫判定結果 */
+.status-detected {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.parasite-type {
+    font-weight: 600;
+    color: #014793;
+}
+
+/* 処方薬提案 */
+.prescription-area {
+    margin-top: 20px;
+}
+
+.prescription-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.prescription-header {
+    margin-bottom: 10px;
+}
+
+.prescription-pet-type {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: #014793;
+    color: white;
+    border-radius: 20px;
+    font-size: 0.9em;
+    font-weight: 600;
+}
+
+.prescription-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #014793;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.prescription-item .prescription-label {
+    font-weight: 600;
+    color: #666;
+    font-size: 0.9em;
+}
+
+.prescription-item .prescription-value {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #014793;
+    width: 100%;
+}
+
+.prescription-dosage-detail {
+    display: block;
+    font-size: 0.75em;
+    font-weight: 400;
+    color: #666;
+    margin-top: 5px;
+}
+
+.prescription-label {
+    font-weight: 600;
+    color: #666;
+}
+
+.prescription-value {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #014793;
+}
+
+.prescription-note {
+    padding: 15px;
+    background: #e7f3ff;
+    border-radius: 8px;
+    color: #014793;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    line-height: 1.6;
+}
+
+.prescription-note i {
+    font-size: 1.2em;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.prescription-alternative {
+    padding: 12px 15px;
+    background: #f0f0f0;
+    border-radius: 8px;
+    border-left: 3px solid #999;
+}
+
+.prescription-label-small {
+    font-weight: 600;
+    color: #666;
+    font-size: 0.85em;
+    margin-bottom: 5px;
+}
+
+.prescription-value-small {
+    font-size: 0.9em;
+    color: #333;
+    line-height: 1.5;
+}
+
+.prescription-warning {
+    padding: 15px;
+    background: #fff3cd;
+    border-radius: 8px;
+    color: #856404;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.85em;
+    line-height: 1.6;
+}
+
+.prescription-warning i {
+    font-size: 1.2em;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
