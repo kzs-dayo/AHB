@@ -1259,9 +1259,78 @@ footer {
     margin-top: 20px;
 }
 
+/* 横長画面用レイアウト */
+.realtime-layout-wide {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 20px;
+    margin-top: 20px;
+    max-height: calc(100vh - 200px);
+    overflow: hidden;
+}
+
+.realtime-video-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto;
+    max-height: calc(100vh - 200px);
+    padding-right: 5px;
+}
+
+.realtime-video-section::-webkit-scrollbar {
+    width: 6px;
+}
+
+.realtime-video-section::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.realtime-video-section::-webkit-scrollbar-thumb {
+    background: #014793;
+    border-radius: 3px;
+}
+
+.realtime-video-section::-webkit-scrollbar-thumb:hover {
+    background: #013a7a;
+}
+
+.realtime-info-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto;
+    max-height: calc(100vh - 200px);
+    padding-right: 5px;
+}
+
+.realtime-info-section::-webkit-scrollbar {
+    width: 6px;
+}
+
+.realtime-info-section::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.realtime-info-section::-webkit-scrollbar-thumb {
+    background: #014793;
+    border-radius: 3px;
+}
+
+.realtime-info-section::-webkit-scrollbar-thumb:hover {
+    background: #013a7a;
+}
+
 @media (max-width: 1024px) {
-    .realtime-layout {
+    .realtime-layout,
+    .realtime-layout-wide {
         grid-template-columns: 1fr;
+    }
+    
+    .realtime-info-section {
+        max-height: none;
     }
 }
 
@@ -1273,7 +1342,7 @@ footer {
 
 /* リアルタイム映像コンテナ */
 .realtime-video-container {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .video-wrapper {
@@ -1282,7 +1351,8 @@ footer {
     background: #000;
     border-radius: 10px;
     overflow: hidden;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 16 / 9;
+    max-height: 400px;
 }
 
 #realtimeCanvas {
@@ -1359,9 +1429,93 @@ footer {
 
 .realtime-controls {
     display: flex;
-    gap: 10px;
+    gap: 8px;
     flex-wrap: wrap;
-    margin-top: 15px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.realtime-controls .btn {
+    padding: 8px 15px;
+    font-size: 0.9em;
+}
+
+/* コンパクトなペット情報 */
+.realtime-pet-info-compact {
+    margin-top: 10px;
+}
+
+.pet-info-row {
+    display: flex;
+    gap: 15px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.pet-info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.age-input-compact {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.age-unit-small {
+    font-size: 0.8em;
+    color: #666;
+    font-weight: 500;
+}
+
+.form-control-compact {
+    padding: 6px 10px;
+    font-size: 0.9em;
+}
+
+/* コンパクトなカード */
+.card-compact {
+    padding: 15px;
+}
+
+.card-compact h2 {
+    font-size: 1.1em;
+    margin-bottom: 12px;
+}
+
+.result-area-compact {
+    min-height: 120px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.prescription-area-compact {
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.detection-stats-compact {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.detection-stats-compact .stat-item {
+    padding: 10px;
+}
+
+.detection-stats-compact .stat-label {
+    font-size: 0.75em;
+    margin-bottom: 5px;
+}
+
+.detection-stats-compact .stat-value {
+    font-size: 1.2em;
+}
+
+.realtime-history-list-compact {
+    max-height: 300px;
 }
 
 /* 検出統計 */
@@ -1405,13 +1559,14 @@ footer {
 }
 
 .realtime-history-item {
-    padding: 15px;
+    padding: 12px;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     background: white;
     transition: all 0.3s;
     cursor: pointer;
+    font-size: 0.9em;
 }
 
 .realtime-history-item:hover {

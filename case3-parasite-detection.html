@@ -140,9 +140,9 @@
 
             <!-- リアルタイム分析タブ -->
             <div id="realtimeTab" class="parasite-tab-content">
-                <div class="realtime-layout">
-                    <!-- 左側：リアルタイム映像・分析 -->
-                    <div class="realtime-section">
+                <div class="realtime-layout-wide">
+                    <!-- 左側：リアルタイム映像・履歴 -->
+                    <div class="realtime-video-section">
                         <div class="card">
                             <h2><i class="fas fa-video"></i> リアルタイム分析</h2>
                             
@@ -169,83 +169,80 @@
                                     <i class="fas fa-stop"></i> 分析停止
                                 </button>
                                 <button class="btn btn-secondary" id="captureBtn" onclick="captureFrame()" style="display: none;">
-                                    <i class="fas fa-camera"></i> フレーム保存
+                                    <i class="fas fa-camera"></i> 保存
                                 </button>
                             </div>
 
-                            <div class="form-group" style="margin-top: 20px;">
-                                <label>ペット情報</label>
-                                <div class="form-group" style="margin-top: 10px;">
-                                    <label style="font-size: 0.9em; color: #666;">種類</label>
-                                    <select id="realtimePetType" class="form-control">
-                                        <option value="">種類を選択</option>
-                                        <option value="dog">犬</option>
-                                        <option value="cat">猫</option>
-                                    </select>
-                                </div>
-                                <div class="form-group" style="margin-top: 10px;">
-                                    <label style="font-size: 0.9em; color: #666;">年齢</label>
-                                    <div class="age-input-grid">
-                                        <div class="age-input-item">
-                                            <input type="number" id="realtimePetAge" class="form-control" placeholder="0" min="0">
-                                            <span class="age-unit">歳</span>
-                                        </div>
-                                        <div class="age-input-item">
-                                            <input type="number" id="realtimePetAgeMonth" class="form-control" placeholder="0" min="0" max="11">
-                                            <span class="age-unit">ヶ月</span>
+                            <div class="realtime-pet-info-compact">
+                                <div class="pet-info-row">
+                                    <div class="pet-info-item">
+                                        <label style="font-size: 0.85em; color: #666;">種類</label>
+                                        <select id="realtimePetType" class="form-control form-control-compact">
+                                            <option value="">選択</option>
+                                            <option value="dog">犬</option>
+                                            <option value="cat">猫</option>
+                                        </select>
+                                    </div>
+                                    <div class="pet-info-item">
+                                        <label style="font-size: 0.85em; color: #666;">年齢</label>
+                                        <div class="age-input-compact">
+                                            <input type="number" id="realtimePetAge" class="form-control form-control-compact" placeholder="0" min="0" style="width: 60px;">
+                                            <span class="age-unit-small">歳</span>
+                                            <input type="number" id="realtimePetAgeMonth" class="form-control form-control-compact" placeholder="0" min="0" max="11" style="width: 60px;">
+                                            <span class="age-unit-small">ヶ月</span>
                                         </div>
                                     </div>
+                                    <div class="pet-info-item">
+                                        <label style="font-size: 0.85em; color: #666;">体重</label>
+                                        <input type="text" id="realtimePetWeight" class="form-control form-control-compact" placeholder="kg" style="width: 80px;">
+                                    </div>
                                 </div>
-                                <div class="form-group" style="margin-top: 10px;">
-                                    <label style="font-size: 0.9em; color: #666;">体重</label>
-                                    <input type="text" id="realtimePetWeight" class="form-control" placeholder="体重 (kg)">
+                            </div>
+                        </div>
+
+                        <div class="card card-compact">
+                            <h2><i class="fas fa-history"></i> 検出履歴</h2>
+                            <div id="realtimeHistoryList" class="realtime-history-list realtime-history-list-compact">
+                                <div class="history-placeholder">
+                                    <p>検出履歴が表示されます</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- 右側：リアルタイム判定結果 -->
-                    <div class="realtime-section">
-                        <div class="card">
-                            <h2><i class="fas fa-brain"></i> リアルタイム判定結果</h2>
-                            <div id="realtimeResultArea" class="result-area">
+                    <!-- 右側：判定結果・処方薬・統計 -->
+                    <div class="realtime-info-section">
+                        <div class="card card-compact">
+                            <h2><i class="fas fa-brain"></i> 判定結果</h2>
+                            <div id="realtimeResultArea" class="result-area result-area-compact">
                                 <div class="result-placeholder">
                                     <div class="placeholder-icon"><i class="fas fa-video"></i></div>
-                                    <p>分析を開始すると<br>リアルタイムで判定結果が表示されます</p>
+                                    <p>分析を開始すると<br>判定結果が表示されます</p>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="card" id="realtimePrescriptionCard" style="display: none;">
-                            <h2><i class="fas fa-pills"></i> 処方薬提案</h2>
-                            <div id="realtimePrescriptionArea" class="prescription-area">
+                        <div class="card card-compact" id="realtimePrescriptionCard" style="display: none;">
+                            <h2><i class="fas fa-pills"></i> 処方薬</h2>
+                            <div id="realtimePrescriptionArea" class="prescription-area prescription-area-compact">
                                 <!-- 処方薬情報がここに表示されます -->
                             </div>
                         </div>
 
-                        <div class="card">
+                        <div class="card card-compact">
                             <h2><i class="fas fa-chart-line"></i> 検出統計</h2>
-                            <div id="detectionStats" class="detection-stats">
+                            <div id="detectionStats" class="detection-stats detection-stats-compact">
                                 <div class="stat-item">
-                                    <div class="stat-label">分析時間</div>
+                                    <div class="stat-label">時間</div>
                                     <div class="stat-value" id="analysisTime">00:00</div>
                                 </div>
                                 <div class="stat-item">
-                                    <div class="stat-label">検出回数</div>
+                                    <div class="stat-label">検出</div>
                                     <div class="stat-value" id="detectionCount">0</div>
                                 </div>
                                 <div class="stat-item">
                                     <div class="stat-label">検出率</div>
                                     <div class="stat-value" id="detectionRate">0%</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <h2><i class="fas fa-history"></i> 検出履歴</h2>
-                            <div id="realtimeHistoryList" class="realtime-history-list">
-                                <div class="history-placeholder">
-                                    <p>検出履歴が表示されます</p>
                                 </div>
                             </div>
                         </div>

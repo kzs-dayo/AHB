@@ -527,7 +527,7 @@ function startRealtimeAnalysis() {
     // キャンバスサイズを設定
     const container = document.getElementById('videoWrapper');
     realtimeCanvas.width = container.clientWidth;
-    realtimeCanvas.height = container.clientWidth * 0.75; // 4:3のアスペクト比
+    realtimeCanvas.height = container.clientWidth * (9 / 16); // 16:9のアスペクト比
 
     // ステータス更新
     videoStatus.innerHTML = `
@@ -545,7 +545,10 @@ function startRealtimeAnalysis() {
         frameCount++;
         
         // 顕微鏡映像を更新（デモ用：微細な変化を加える）
-        drawMicroscopeView(realtimeCtx, realtimeCanvas.width, realtimeCanvas.height);
+        // 映像更新はより遅く（3フレームに1回）
+        if (frameCount % 3 === 0) {
+            drawMicroscopeView(realtimeCtx, realtimeCanvas.width, realtimeCanvas.height);
+        }
         
         updateRealtimeAnalysis(petType);
         updateDetectionStats();
@@ -554,7 +557,7 @@ function startRealtimeAnalysis() {
         if (frameCount % 30 === 0) { // 30フレームごと
             simulateDetection();
         }
-    }, 100); // 100msごとに更新（10fps）
+    }, 300); // 300msごとに更新（約3.3fps）
 }
 
 // リアルタイム分析停止
