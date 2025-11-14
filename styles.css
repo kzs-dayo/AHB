@@ -310,6 +310,36 @@ main {
     box-shadow: 0 0 0 3px rgba(1, 71, 147, 0.1);
 }
 
+/* 年齢入力グリッド */
+.age-input-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.age-input-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.age-input-item .form-control {
+    flex: 1;
+}
+
+.age-unit {
+    font-size: 0.9em;
+    color: #666;
+    font-weight: 500;
+    min-width: 35px;
+}
+
+@media (max-width: 768px) {
+    .age-input-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* 判定結果エリア */
 .result-area {
     min-height: 200px;
@@ -863,47 +893,100 @@ footer {
 .breeder-layout {
     display: flex;
     justify-content: center;
-    align-items: center;
-    min-height: 60vh;
-    padding: 40px 20px;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 20px;
+    background: #f5f5f5;
 }
 
 .breeder-container {
-    max-width: 600px;
+    max-width: 480px;
     width: 100%;
 }
 
 .breeder-card {
     background: white;
     border-radius: 20px;
-    padding: 40px;
+    padding: 0;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.breeder-card.app-style {
+    border-radius: 0;
+    box-shadow: none;
+    min-height: 100vh;
+}
+
+/* アプリ風ヘッダー */
+.app-header {
+    background: linear-gradient(135deg, #014793 0%, #013a7a 100%);
+    color: white;
+    padding: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.app-header-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.app-logo {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+}
+
+.app-title h2 {
+    font-size: 1.3em;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    margin: 0;
+    color: white;
+}
+
+.app-subtitle {
+    font-size: 0.85em;
+    opacity: 0.9;
+    margin: 0;
+    color: white;
 }
 
 .breeder-header {
     text-align: center;
-    margin-bottom: 30px;
+    margin: 30px 20px 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
 }
 
 .breeder-header h2 {
-    font-size: 2em;
+    font-size: 1.5em;
     font-weight: 300;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.05em;
     color: #333;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
 .breeder-subtitle {
     color: #666;
-    font-size: 1em;
+    font-size: 0.9em;
 }
 
 .message-box {
     background: #f8f9fa;
     border-left: 4px solid #014793;
     border-radius: 10px;
-    padding: 25px;
-    margin-bottom: 30px;
+    padding: 20px;
+    margin: 0 20px 25px;
 }
 
 .message-icon {
@@ -930,22 +1013,25 @@ footer {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    margin-bottom: 20px;
+    margin: 0 20px 25px;
 }
 
 .response-btn {
-    padding: 20px;
+    padding: 24px;
     border: 2px solid;
-    border-radius: 12px;
-    font-size: 1.2em;
+    border-radius: 16px;
+    font-size: 1.3em;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 12px;
     background: white;
+    min-height: 70px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .response-btn.btn-safe {
@@ -978,7 +1064,7 @@ footer {
 }
 
 .breeder-situation {
-    margin: 25px 0;
+    margin: 0 20px 25px;
 }
 
 .breeder-situation label {
@@ -1029,6 +1115,10 @@ footer {
     text-align: center;
     color: #666;
     font-size: 0.9em;
+    margin: 0 20px 30px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
 }
 
 .breeder-info i {
@@ -1036,7 +1126,7 @@ footer {
 }
 
 .breeder-status {
-    margin-top: 30px;
+    margin: 0 20px 30px;
     padding: 30px;
     background: #f8f9fa;
     border-radius: 10px;
@@ -1082,20 +1172,72 @@ footer {
     }
 
     .breeder-card {
-        padding: 30px 20px;
+        padding: 0;
+    }
+    
+    .breeder-card.app-style {
+        min-height: 100vh;
+    }
+
+    .breeder-header {
+        margin: 20px 15px 15px;
     }
 
     .breeder-header h2 {
-        font-size: 1.5em;
+        font-size: 1.3em;
+    }
+    
+    .message-box {
+        margin: 0 15px 20px;
+        padding: 15px;
+    }
+
+    .response-buttons {
+        margin: 0 15px 20px;
     }
 
     .response-btn {
-        font-size: 1em;
+        font-size: 1.1em;
+        padding: 20px;
+        min-height: 60px;
+    }
+    
+    .breeder-situation {
+        margin: 0 15px 20px;
+    }
+    
+    .breeder-info {
+        margin: 0 15px 25px;
+    }
+    
+    .breeder-status {
+        margin: 0 15px 25px;
+    }
+    
+    .app-header {
         padding: 15px;
+    }
+    
+    .app-logo {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3em;
+    }
+    
+    .app-title h2 {
+        font-size: 1.2em;
     }
 }
 
 /* 寄生虫判定システム */
+.parasite-tab-content {
+    display: none;
+}
+
+.parasite-tab-content.active {
+    display: block;
+}
+
 .parasite-layout {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1107,6 +1249,333 @@ footer {
     .parasite-layout {
         grid-template-columns: 1fr;
     }
+}
+
+/* リアルタイム分析レイアウト */
+.realtime-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+@media (max-width: 1024px) {
+    .realtime-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+.realtime-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* リアルタイム映像コンテナ */
+.realtime-video-container {
+    margin-bottom: 20px;
+}
+
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    background: #000;
+    border-radius: 10px;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+}
+
+#realtimeCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    background: #1a1a1a;
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.detection-box {
+    position: absolute;
+    border: 3px solid #dc3545;
+    border-radius: 4px;
+    background: rgba(220, 53, 69, 0.1);
+    pointer-events: none;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(1.05);
+    }
+}
+
+.video-status {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    z-index: 10;
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #999;
+    display: inline-block;
+}
+
+.status-indicator.active .status-dot {
+    background: #28a745;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+.realtime-controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+/* 検出統計 */
+.detection-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #014793;
+}
+
+.stat-label {
+    font-size: 0.85em;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.stat-value {
+    font-size: 1.5em;
+    font-weight: 600;
+    color: #014793;
+}
+
+/* リアルタイム検出履歴 */
+.realtime-history-list {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.realtime-history-list .history-placeholder {
+    text-align: center;
+    padding: 40px 20px;
+    color: #999;
+}
+
+.realtime-history-item {
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    background: white;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.realtime-history-item:hover {
+    background: #f8f9fa;
+    transform: translateX(5px);
+    border-color: #014793;
+}
+
+.history-parasite {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.history-parasite i {
+    color: #dc3545;
+    font-size: 1.2em;
+}
+
+.confidence-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    background: #f8d7da;
+    color: #721c24;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: 600;
+    margin-left: 8px;
+}
+
+.history-prescription {
+    margin-top: 10px;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    border-left: 3px solid #014793;
+}
+
+.prescription-summary {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9em;
+}
+
+.prescription-summary i {
+    color: #014793;
+}
+
+/* 履歴詳細モーダル */
+.history-detail-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.history-detail-modal .modal-content {
+    background: white;
+    border-radius: 15px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    color: #666;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s;
+}
+
+.modal-close:hover {
+    background: #f0f0f0;
+    color: #333;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.detail-section {
+    margin-bottom: 25px;
+}
+
+.detail-section h4 {
+    font-size: 1.1em;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    color: #333;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.detail-section h4 i {
+    color: #014793;
+}
+
+.detail-prescription-section {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #014793;
+}
+
+.detail-prescription-section h4 {
+    margin-bottom: 15px;
+}
+
+.prescription-detail-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.prescription-detail-item:last-child {
+    border-bottom: none;
+}
+
+.prescription-detail-item .prescription-label {
+    font-weight: 600;
+    color: #666;
+}
+
+.prescription-detail-item .prescription-value {
+    color: #333;
+    text-align: right;
 }
 
 /* 画像アップロードエリア */
@@ -1278,6 +1747,12 @@ footer {
     align-items: flex-start;
     gap: 10px;
     line-height: 1.6;
+}
+
+.prescription-age-note {
+    background: #fff3cd;
+    color: #856404;
+    border-left: 3px solid #ffc107;
 }
 
 .prescription-note i {

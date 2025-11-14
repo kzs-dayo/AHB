@@ -119,6 +119,19 @@ function showResult() {
     const result = results[Math.floor(Math.random() * results.length)];
     const petType = document.getElementById('petType').value || '未選択';
     const breed = document.getElementById('breed').value || '未入力';
+    const age = document.getElementById('age').value || '';
+    const ageMonth = document.getElementById('ageMonth').value || '';
+    
+    // 年齢表示を生成
+    let ageDisplay = '';
+    if (age || ageMonth) {
+        const ageParts = [];
+        if (age) ageParts.push(`${age}歳`);
+        if (ageMonth) ageParts.push(`${ageMonth}ヶ月`);
+        ageDisplay = ageParts.join(' ');
+    } else {
+        ageDisplay = '未入力';
+    }
     
     // 心雑音が検出された場合のセグメントを生成（デモ用）
     if (result.status !== 'normal') {
@@ -162,7 +175,7 @@ function showResult() {
                 
                 <div class="detail-item" style="margin-top: 25px;">
                     <span class="detail-label">対象ペット</span>
-                    <span class="detail-value">${petType === 'dog' ? '犬' : petType === 'cat' ? '猫' : petType} / ${breed}</span>
+                    <span class="detail-value">${petType === 'dog' ? '犬' : petType === 'cat' ? '猫' : petType} / ${breed} / ${ageDisplay}</span>
                 </div>
                 <div class="detail-item">
                     <span class="detail-label">判定日時</span>
@@ -195,20 +208,71 @@ function generateMurmurSegments() {
     return segments.sort((a, b) => a.start - b.start);
 }
 
-// サンプル波形データを生成
+// サンプル波形データを生成（心電図風）
 function generateSampleWaveform() {
-    const sampleLength = 1000;
+    const sampleLength = 2000;
     const data = new Float32Array(sampleLength);
     
-    // 心音のような波形を生成（周期的なパターン）
+    // 心拍数（1秒間に約2回の心拍）
+    const heartRate = 2;
+    const samplesPerBeat = sampleLength / (heartRate * 2);
+    
     for (let i = 0; i < sampleLength; i++) {
         const t = i / sampleLength;
-        // 基本の心音パターン（S1とS2）
-        const heartbeat = Math.sin(t * Math.PI * 4) * 0.3; // 心拍の基本パターン
-        const variation = Math.sin(t * Math.PI * 20) * 0.1; // 細かい変動
-        const noise = (Math.random() - 0.5) * 0.05; // ノイズ
+        const beatPosition = (i % samplesPerBeat) / samplesPerBeat;
         
-        data[i] = heartbeat + variation + noise;
+        let value = 0;
+        
+        // 心電図のような波形を生成
+        // P波（心房の興奮）
+        if (beatPosition >= 0 && beatPosition < 0.15) {
+            const pPos = beatPosition / 0.15;
+            value = Math.sin(pPos * Math.PI) * 0.15;
+        }
+        // PQ間隔（ほぼ平坦）
+        else if (beatPosition >= 0.15 && beatPosition < 0.25) {
+            value = -0.05;
+        }
+        // QRS複合体（心室の興奮 - 最も大きな波）
+        else if (beatPosition >= 0.25 && beatPosition < 0.45) {
+            const qrsPos = (beatPosition - 0.25) / 0.2;
+            // Q波（下降）
+            if (qrsPos < 0.2) {
+                value = -0.2 - qrsPos * 0.3;
+            }
+            // R波（急上昇）
+            else if (qrsPos < 0.5) {
+                value = -0.26 + (qrsPos - 0.2) * 1.5;
+            }
+            // S波（下降）
+            else if (qrsPos < 0.7) {
+                value = 0.19 - (qrsPos - 0.5) * 1.2;
+            }
+            // ST部分
+            else {
+                value = -0.05;
+            }
+        }
+        // ST部分（平坦）
+        else if (beatPosition >= 0.45 && beatPosition < 0.65) {
+            value = -0.05;
+        }
+        // T波（心室の再分極）
+        else if (beatPosition >= 0.65 && beatPosition < 0.85) {
+            const tPos = (beatPosition - 0.65) / 0.2;
+            value = -0.05 + Math.sin(tPos * Math.PI) * 0.25;
+        }
+        // 等電位線（ほぼ0）
+        else {
+            value = (Math.random() - 0.5) * 0.02;
+        }
+        
+        // ベースラインの微細な変動
+        const baseline = Math.sin(t * Math.PI * 0.5) * 0.02;
+        // ノイズ
+        const noise = (Math.random() - 0.5) * 0.03;
+        
+        data[i] = value + baseline + noise;
     }
     
     return data;
@@ -301,6 +365,19 @@ function drawWaveform() {
 function addToHistory() {
     const petType = document.getElementById('petType').value || '未選択';
     const breed = document.getElementById('breed').value || '未入力';
+    const age = document.getElementById('age').value || '';
+    const ageMonth = document.getElementById('ageMonth').value || '';
+    
+    // 年齢表示を生成
+    let ageDisplay = '';
+    if (age || ageMonth) {
+        const ageParts = [];
+        if (age) ageParts.push(`${age}歳`);
+        if (ageMonth) ageParts.push(`${ageMonth}ヶ月`);
+        ageDisplay = ageParts.join(' ');
+    } else {
+        ageDisplay = '未入力';
+    }
     const statusLabels = {
         'normal': '正常',
         'abnormal': '異常あり',
@@ -323,7 +400,7 @@ function addToHistory() {
             <span class="history-date">${new Date().toLocaleString('ja-JP')}</span>
         </div>
         <div class="history-info">
-            ${petType === 'dog' ? '犬' : petType === 'cat' ? '猫' : petType} / ${breed} / ${selectedFile ? selectedFile.name : 'ファイル名不明'}
+            ${petType === 'dog' ? '犬' : petType === 'cat' ? '猫' : petType} / ${breed} / ${ageDisplay} / ${selectedFile ? selectedFile.name : 'ファイル名不明'}
         </div>
     `;
     

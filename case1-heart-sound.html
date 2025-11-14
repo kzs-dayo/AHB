@@ -56,7 +56,16 @@
                             </div>
                             <div class="form-group">
                                 <label>年齢</label>
-                                <input type="number" id="age" class="form-control" placeholder="歳">
+                                <div class="age-input-grid">
+                                    <div class="age-input-item">
+                                        <input type="number" id="age" class="form-control" placeholder="0" min="0">
+                                        <span class="age-unit">歳</span>
+                                    </div>
+                                    <div class="age-input-item">
+                                        <input type="number" id="ageMonth" class="form-control" placeholder="0" min="0" max="11">
+                                        <span class="age-unit">ヶ月</span>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>性別</label>
